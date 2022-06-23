@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+  </head>
+
+  <style>
+    .main-wrap {
+      margin-left: 250px;
+      border: 1px solid blue;
+      width: 100%;
+      top: 0;
+    }
+
+    .wrapper {
+      display: flex;
+    }
+
+    /* Sidebar */
+
+    .sidebar {
+      width: 250px;
+      border: 1px solid red;
+      height: 100%;
+      position: fixed;
+      top: 0;
+    }
+    .sidebar_item,
+    .sidebar_subitem {
+      overflow: hidden;
+    }
+    .sidebar_title {
+      display: flex;
+    }
+
+    .sidebar_title_text {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .has_dropdown .sidebar_title_text:after {
+      content: "aa";
+      display: inline-block;
+      transition: 0.2s ease-in-out;
+    }
+
+    .has_dropdown.active .sidebar_title_text:after {
+      transform: rotate(90deg);
+    }
+
+    .sidebar_contents {
+      max-height: 0;
+      background: skyblue;
+      transition: all 0.4s ease-in-out;
+    }
+    .sidebar_contents.active {
+      max-height: 1000px;
+    }
+    .sidebar_title_icon,
+    .sidebar_title_text {
+      pointer-events: none;
+    }
+  </style>
+
+  <body>
+    <div class="wrapper">
+      <div class="sidebar">
+        <div class="sidebar_header">Sidebar_Header</div>
+        <div class="sidebar_navigation">
+          <div class="sidebar_item">
+            <div class="sidebar_title has_dropdown main-drop">
+              <div class="sidebar_title_icon"></div>
+              <div class="sidebar_title_text">Sidebar_Title_1</div>
+            </div>
+            <div class="sidebar_contents">
+              <div class="sidebar_subitem">
+                <div class="sidebar_title has_dropdown sub-drop">
+                  <div class="sidebar_title_text">Sidebar_Title_1_1</div>
+                </div>
+                <div class="sidebar_contents">
+                  <div>1_1_1</div>
+                  <div>1_1_2</div>
+                  <div>1_1_3</div>
+                </div>
+              </div>
+              <div class="sidebar_subitem">
+                <div class="sidebar_title">
+                  <div class="sidebar_title_text">Sidebar_Title_1_1</div>
+                </div>
+              </div>
+              <div class="sidebar_subitem">
+                <div class="sidebar_title">
+                  <div class="sidebar_title_text">Sidebar_Title_1_1</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar_item">
+            <div class="sidebar_title has_dropdown main-drop">
+              <div class="sidebar_title_icon"></div>
+              <div class="sidebar_title_text">Sidebar_Title_2</div>
+            </div>
+            <div class="sidebar_contents">
+              <div class="sidebar_subitem">
+                <div class="sidebar_title has_dropdown sub-drop">
+                  <div class="sidebar_title_text">Sidebar_Title_2_1</div>
+                </div>
+                <div class="sidebar_contents">
+                  <div>1_1_1</div>
+                  <div>1_1_2</div>
+                  <div>1_1_3</div>
+                </div>
+              </div>
+              <div class="sidebar_subitem">
+                <div class="sidebar_title">
+                  <div class="sidebar_title_text">Sidebar_Title_2_2</div>
+                </div>
+              </div>
+              <div class="sidebar_subitem">
+                <div class="sidebar_title">
+                  <div class="sidebar_title_text">Sidebar_Title_2_3</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="main-wrap">Main_Wrap</div>
+    </div>
+    <script>
+      const has_dropdown = document.querySelectorAll(".has_dropdown");
+      const myFunction = (item, index, some) => {
+        item.addEventListener("click", (e) => {
+          if (e.target.classList.contains("main-drop")) {
+            if (e.target.nextElementSibling.classList.contains("active")) {
+              e.target.nextElementSibling.classList.remove("active");
+              return;
+            }
+
+            if (document.querySelectorAll(".active").length >= 1) {
+              document.querySelectorAll(".active").forEach((element) => {
+                element.classList.remove("active");
+              });
+            }
+            e.target.nextElementSibling.classList.add("active");
+          }
+          if (e.target.classList.contains("sub-drop")) {
+            if (e.target.nextElementSibling.classList.contains("active")) {
+              e.target.nextElementSibling.classList.remove("active");
+              return;
+            }
+            e.target.nextElementSibling.classList.add("active");
+          }
+        });
+      };
+      has_dropdown.forEach(myFunction);
+    </script>
+  </body>
+</html>
